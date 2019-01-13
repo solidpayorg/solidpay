@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
+set -e
+
 BALANCE_URI="https://tippin.me/dashboard.php"
 
 usage() {
-  echo "Set SESSIONID to run"
+  echo "Set SESSIONID environment variable to run"
   exit -1
 }
 
