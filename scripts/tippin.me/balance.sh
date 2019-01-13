@@ -4,7 +4,7 @@
 # In order to run you must set PHPSESSID which can be found in
 # your cookie in your tippin.me session
 
-set -e
+set -o errexit
 
 BALANCE_URI="https://tippin.me/dashboard.php"
 
