@@ -14,7 +14,7 @@ if [ -z "$SESSIONID" ]
 then
   usage
 else
-  BALANCE=$(2>/dev/null curl "$NEWINVOICE_URI" -H "Cookie: PHPSESSID=$SESSIONID" --data "userid=$USERID&username=$USERNAME&istaco=0&customAmnt=0&customMemo=" | sed 's/.*"\(ln[^"]*\)".*/\1/')
+  BALANCE=$(2>/dev/null curl "$NEWINVOICE_URI" --data "userid=$USERID&username=$USERNAME&istaco=0&customAmnt=0&customMemo=" | sed 's/.*"\(ln[^"]*\)".*/\1/')
   echo $BALANCE
 fi
 
