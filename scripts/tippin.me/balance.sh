@@ -5,6 +5,7 @@
 # your cookie in your tippin.me session
 
 set -o errexit
+set -x xtrace
 
 BALANCE_URI="https://tippin.me/dashboard.php"
 
