@@ -5,20 +5,22 @@
 # your cookie in your tippin.me session
 
 set -o errexit
-set -x xtrace
+set -o xtrace
 
 BALANCE_URI="https://tippin.me/dashboard.php"
 
 usage() {
-  echo "Set the PHPSESSID env variable.  It can be found in your tippin.me cookie." 1>&2
+  echo "Usage: $0 <PHPSESSID>" 1>&2
   exit -1
 }
 
-if [ -z "$PHPSESSID" ] ; then
+if [ $# -ne 1 ] ; then
   usage
-else
-  BALANCE=$(2>/dev/null curl "$BALANCE_URI" -H "Cookie: PHPSESSID=$PHPSESSID" | grep 'userBalance =' | tr -dc '0-9')
-  echo $BALANCE
 fi
+
+PHPSESSID="$1"
+
+BALANCE=$(2>/dev/null curl "$BALANCE_URI" -H "Cookie: PHPSESSID=${PHPSESSID}" | grep 'userBalance =' | tr -dc '0-9')
+echo $BALANCE
 
 
