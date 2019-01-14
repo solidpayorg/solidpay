@@ -20,6 +20,6 @@ fi
 USERNAME="$1"
 USERID="$2"
 
-NEWINVOICE=$(2>/dev/null curl "$NEWINVOICE_URI" --data "userid=${USERID}&username=${USERNAME}&istaco=0&customAmnt=1&customMemo=" | sed 's/.*"\(ln[^"]*\)".*/\1/')
+NEWINVOICE=$(2>/dev/null curl "$NEWINVOICE_URI" --data "userid=${USERID}&username=${USERNAME}&istaco=0&customAmnt=&customMemo=" | sed 's/.*"\(ln[^"]*\)".*/\1/')
 echo $NEWINVOICE
 
