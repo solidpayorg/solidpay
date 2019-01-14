@@ -6,6 +6,7 @@
 
 set -o errexit
 set -o xtrace
+set -o nounset
 
 BALANCE_URI="https://tippin.me/dashboard.php"
 
