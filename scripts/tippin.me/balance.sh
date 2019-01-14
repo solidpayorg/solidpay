@@ -11,7 +11,7 @@ set -o nounset
 BALANCE_URI="https://tippin.me/dashboard.php"
 
 usage() {
-  echo "Usage: $0 <PHPSESSID>" 1>&2
+  echo "Usage: $0 <phpsessid>" 1>&2
   exit -1
 }
 
@@ -19,9 +19,9 @@ if [ $# -ne 1 ] ; then
   usage
 fi
 
-PHPSESSID="$1"
+phpsessid="$1"
 
-BALANCE=$(2>/dev/null curl "$BALANCE_URI" -H "Cookie: PHPSESSID=${PHPSESSID}" | grep 'userBalance =' | tr -dc '0-9')
+BALANCE=$(2>/dev/null curl "$BALANCE_URI" -H "Cookie: PHPSESSID=${phpsessid}" | grep 'userBalance =' | tr -dc '0-9')
 echo $BALANCE
 
 
