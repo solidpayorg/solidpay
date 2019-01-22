@@ -34,6 +34,6 @@ if [ $TOTAL -ne $PRICE ] ; then
   exit
 fi
 
-$LNCLI sendpayment -f --pay_req=$PAY_REQ
+$LNCLI sendpayment -f --pay_req=$PAY_REQ 1>&2
 
 ./claimvoucher.sh $PAY_REQ
