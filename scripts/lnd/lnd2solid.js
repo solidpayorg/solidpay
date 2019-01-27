@@ -1,34 +1,24 @@
 var ln = require("./ln.json")
-/*
-  { channel_id: '566875209985687552',
-    chan_point:
-     '0d0d7f7c8455b9592813de8a9571838f92a97236e0fa1fc6d87e3817050475a3:0',
-    last_update: 1548498404,
-    node1_pub:
-     '03c80be3937717b502e66dc6cf8ba2881c9e68a8398bfa08c2866babfc88a729f3',
-    node2_pub:
-     '03fc5b91ce2d857f146fd9b986363374ffe04dc143d8bcd6d7664c8873c463cdfc',
-    capacity: '349724',
-    node1_policy:
-     { time_lock_delta: 144,
-       min_htlc: '1000',
-       fee_base_msat: '1000',
-       fee_rate_milli_msat: '1',
-       disabled: true },
-    node2_policy:
-     { time_lock_delta: 144,
-       min_htlc: '1000',
-       fee_base_msat: '1000',
-       fee_rate_milli_msat: '1',
-       disabled: false } },
 
-*/
 
+var nodes = {}
     
 ln.edges.forEach((k) => { 
-console.log(k)
+
+    console.log(k)
+
+
+    if (k.node1_pub) {
+        nodes[k.node1_pub] = [k.channel_id].concat(k.node1_pub) 
+    } 
+
+    if (k.node2_pub) {
+        nodes[k.node2_pub] = [k.channel_id].concat(k.node2_pub) 
+    } 
+
 
     var turtle = `@prefix : <https://w3id.org/ln#> .
+
     
 <#this> a :Edge ;
   :channel_id "${k.channel_id}" ;
@@ -84,7 +74,15 @@ ln.nodes.forEach((k) => {
   :pub_key "${k.pub_key}" ;
   ${addr_turtle}:alias """${k.alias}""" ;
   :color "${k.color}" ;
-  :last_update "${k.last_update}" .`
+  :last_update "${k.last_update}" .
+  `
+
+  if (nodes && nodes[k.pub_key]) {
+      console.log(nodes[k.pub_key])
+      nodes[k.pub_key].forEach( (k) => {
+        turtle += `<../edge/${k}.ttl#this>  :node1_pub <#this> .\n`
+      } )      
+  }
 
     console.log(turtle); const file = "./node/" + k.pub_key + ".ttl"; 
     fs.writeFileSync(file, turtle) 
