@@ -9,11 +9,13 @@ ln.edges.forEach((k) => {
 
 
     if (k.node1_pub) {
-        nodes[k.node1_pub] = [k.channel_id].concat(nodes[k.node1_pub]) 
-    } 
+        nodes[k.node1_pub] = nodes[k.node1_pub] || []
+        nodes[k.node1_pub].push(k.channel_id)
+    }
 
     if (k.node2_pub) {
-        nodes[k.node2_pub] = [k.channel_id].concat(nodes[k.node1_pub]) 
+        nodes[k.node2_pub] = nodes[k.node2_pub] || []
+        nodes[k.node2_pub].push(k.channe2_id)
     } 
 
 
