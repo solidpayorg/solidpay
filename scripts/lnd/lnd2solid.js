@@ -10,12 +10,16 @@ ln.edges.forEach((k) => {
 
     if (k.node1_pub) {
         nodes[k.node1_pub] = nodes[k.node1_pub] || []
-        nodes[k.node1_pub].push(k.channel_id)
+        if (k.channel_id) {
+            nodes[k.node1_pub].push(k.channel_id)
+        }
     }
 
     if (k.node2_pub) {
         nodes[k.node2_pub] = nodes[k.node2_pub] || []
-        nodes[k.node2_pub].push(k.channe2_id)
+        if (k.channel_id) {
+            nodes[k.node2_pub].push(k.channe2_id)
+        }
     } 
 
 
@@ -82,7 +86,9 @@ ln.nodes.forEach((k) => {
   if (nodes && nodes[k.pub_key]) {
       console.log(nodes[k.pub_key])
       nodes[k.pub_key].forEach( (k) => {
-        turtle += `<../edge/${k}.ttl#this>  :node1_pub <#this> .\n`
+        if (k) {
+            turtle += `<../edge/${k}.ttl#this>  :node1_pub <#this> .\n`
+        }
       } )      
   }
 
