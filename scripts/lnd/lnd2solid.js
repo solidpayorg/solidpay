@@ -26,8 +26,8 @@ ln.edges.forEach((k) => {
 
     
 <#this> a :Edge ;
-  :channel_id "${k.channel_id}" ;
-  :chan_point """${k.chan_point}""" ;
+  :short_channel_id "${k.channel_id}" ;
+  :chain_hash """${k.chan_point}""" ;
   :capacity "${k.capacity}" ;
 
   :source <../node/${k.node1_pub}.ttl#this> ;
@@ -36,25 +36,25 @@ ln.edges.forEach((k) => {
   :node1_policy <#node1_policy> ;
   :node2_policy <#node2_policy> ;
 
-  :last_update "${k.last_update}" .
+  :timestamp "${k.last_update}" .
   `
 
     if (k.node1_policy) {
         turtle += `<#node1_policy> a :Policy ;
-    :time_lock_delta ${k.node1_policy.time_lock_delta} ;
-    :min_htlc ${k.node1_policy.min_htlc} ;
+    :cltv_expiry_delta ${k.node1_policy.time_lock_delta} ;
+    :htlc_minimum_msat ${k.node1_policy.min_htlc} ;
     :fee_base_msat ${k.node1_policy.fee_base_msat} ;
-    :fee_rate_milli_msat ${k.node1_policy.fee_rate_milli_msat} ;
+    :fee_proportional_millionths ${k.node1_policy.fee_rate_milli_msat} ;
     :disabled ${k.node1_policy.disabled} .
     `
     }
 
     if (k.node2_policy) {
         turtle += `<#node2_policy> a :Policy ;
-    :time_lock_delta ${k.node2_policy.time_lock_delta} ;
-    :min_htlc ${k.node2_policy.min_htlc} ;
+    :cltv_expiry_delta ${k.node2_policy.time_lock_delta} ;
+    :htlc_minimum_msat ${k.node2_policy.min_htlc} ;
     :fee_base_msat ${k.node2_policy.fee_base_msat} ;
-    :fee_rate_milli_msat ${k.node2_policy.fee_rate_milli_msat} ;
+    :fee_proportional_millionths ${k.node2_policy.fee_rate_milli_msat} ;
     :disabled ${k.node2_policy.disabled} .
     `
     }
