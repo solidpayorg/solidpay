@@ -79,6 +79,7 @@ ln.nodes.forEach((k) => {
 <#this> a :Node ;
   :pub_key "${k.pub_key}" ;
   ${addr_turtle}:alias """${k.alias}""" ;
+  <http://purl.org/dc/terms/title> """${k.alias}""" ;
   :color "${k.color}" ;
   :last_update "${k.last_update}" .
   `
