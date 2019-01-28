@@ -33,8 +33,8 @@ ln.edges.forEach((k) => {
   :source <../node/${k.node1_pub}.ttl#this> ;
   :destination <../node/${k.node2_pub}.ttl#this> ;
 
-  :node1_policy <#node1_policy> ;
-  :node2_policy <#node2_policy> ;
+  :source_policy <#node1_policy> ;
+  :destination_policy <#node2_policy> ;
 
   :timestamp "${k.last_update}" .
   `
