@@ -1,3 +1,5 @@
-NICE=$1
+#!/bin/bash
 
-2>/dev/null curl https://github.com/${angelo-v} | grep itemprop=\"url | sed 's/.">([^<])<\/a>.*/\1/'
+NICK=$1
+
+2>/dev/null curl https://github.com/${NICK} | grep itemprop=\"url | sed 's/.">([^<])<\/a>.*/\1/'
