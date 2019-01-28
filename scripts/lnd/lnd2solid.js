@@ -70,18 +70,18 @@ console.log(turtle);
 ln.nodes.forEach((k) => { 
     var addr_turtle = ''
     k.addresses.forEach(address => {
-        addr_turtle += ':addr "' + address.addr + '" ;\n'
+        addr_turtle += ':address "' + address.addr + '" ;\n'
     })
 
 
     var turtle = `@prefix : <https://w3id.org/ln#> .
     
 <#this> a :Node ;
-  :pub_key "${k.pub_key}" ;
+  :node_id "${k.pub_key}" ;
   ${addr_turtle}:alias """${k.alias}""" ;
-  <http://purl.org/dc/terms/title> """${k.alias}""" ;
-  :color "${k.color}" ;
-  :last_update "${k.last_update}" .
+  <http://www.w3.org/2000/01/rdf-schema#label> """${k.alias}""" ;
+  :rgb_color "${k.color}" ;
+  :timestamp "${k.last_update}" .
   `
 
   if (nodes && nodes[k.pub_key]) {
