@@ -1,7 +1,8 @@
 var ln = require("./ln.json")
 
 
-var nodes = {}
+var node1 = {}
+var node2 = {}
     
 ln.edges.forEach((k) => { 
 
@@ -9,16 +10,16 @@ ln.edges.forEach((k) => {
 
 
     if (k.node1_pub) {
-        nodes[k.node1_pub] = nodes[k.node1_pub] || []
+        node1[k.node1_pub] = node1[k.node1_pub] || []
         if (k.channel_id) {
-            nodes[k.node1_pub].push(k.channel_id)
+            node1[k.node1_pub].push(k.channel_id)
         }
     }
 
     if (k.node2_pub) {
-        nodes[k.node2_pub] = nodes[k.node2_pub] || []
+        node2[k.node2_pub] = node2[k.node2_pub] || []
         if (k.channel_id) {
-            nodes[k.node2_pub].push(k.channe2_id)
+            node2[k.node2_pub].push(k.channel_id)
         }
     } 
 
@@ -31,8 +32,8 @@ ln.edges.forEach((k) => {
   :chan_point """${k.chan_point}""" ;
   :capacity "${k.capacity}" ;
 
-  :node1_pub <../node/${k.node1_pub}.ttl#this> ;
-  :node2_pub <../node/${k.node2_pub}.ttl#this> ;
+  :source <../node/${k.node1_pub}.ttl#this> ;
+  :destination <../node/${k.node2_pub}.ttl#this> ;
 
   :node1_policy <#node1_policy> ;
   :node2_policy <#node2_policy> ;
@@ -84,14 +85,23 @@ ln.nodes.forEach((k) => {
   :timestamp "${k.last_update}" .
   `
 
-  if (nodes && nodes[k.pub_key]) {
-      console.log(nodes[k.pub_key])
-      nodes[k.pub_key].forEach( (k) => {
-        if (k) {
-            turtle += `<../edge/${k}.ttl#this>  :node1_pub <#this> .\n`
-        }
-      } )      
-  }
+  if (node1 && node1[k.pub_key]) {
+    console.log(node1[k.pub_key])
+    node1[k.pub_key].forEach((k) => {
+      if (k) {
+          turtle += `<../edge/${k}.ttl#this>  :source <#this> .\n`
+      }
+    })      
+}
+
+if (node2 && node2[k.pub_key]) {
+    console.log(node2[k.pub_key])
+    node2[k.pub_key].forEach((k) => {
+      if (k) {
+          turtle += `<../edge/${k}.ttl#this>  :destination <#this> .\n`
+      }
+    })      
+}
 
     console.log(turtle); const file = "./node/" + k.pub_key + ".ttl"; 
     fs.writeFileSync(file, turtle) 
